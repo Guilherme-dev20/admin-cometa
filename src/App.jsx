@@ -3,6 +3,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Products from "./pages/Products";
 import Colors from "./pages/Colors";
+import Campaigns from "./pages/Campaigns";
+import Destaques from "./pages/Destaques";
 
 export default function App() {
   return (
@@ -11,7 +13,9 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<Products />} />
-         <Route path="/colors" element={<Colors />} />
+        <Route path="/colors" element={<Colors />} />
+        <Route path="/campaigns" element={<Campaigns />} />
+        <Route path="/destaques" element={<Destaques />} />
       </Routes>
     </BrowserRouter>
   );
