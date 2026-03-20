@@ -7,18 +7,28 @@ export function useAuth() {
 
   useEffect(() => {
     // Busca a sessão atual
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
+    supabase.auth.getSession()
+      .then(({ data, error }) => {
+        if (!error && data) setSession(data.session);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
 
     // Escuta mudanças (login/logout)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
+    let subscription;
+    try {
+      const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+        setSession(session);
+        setLoading(false);
+      });
+      subscription = data?.subscription;
+    } catch {
       setLoading(false);
-    });
+    }
 
-    return () => subscription.unsubscribe();
+    return () => {
+      try { subscription?.unsubscribe(); } catch {}
+    };
   }, []);
 
   return { session, loading };

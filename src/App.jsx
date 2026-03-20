@@ -5,6 +5,7 @@ import Products from "./pages/Products";
 import Colors from "./pages/Colors";
 import Campaigns from "./pages/Campaigns";
 import Destaques from "./pages/Destaques";
+import Temas from "./pages/Temas";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/colors" element={<Colors />} />
         <Route path="/campaigns" element={<Campaigns />} />
         <Route path="/destaques" element={<Destaques />} />
+        <Route path="/temas" element={<Temas />} />
       </Routes>
     </BrowserRouter>
   );
