@@ -6,6 +6,7 @@ import Colors from "./pages/Colors";
 import Campaigns from "./pages/Campaigns";
 import Destaques from "./pages/Destaques";
 import Temas from "./pages/Temas";
+import Hero3D from "./pages/Hero3D";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/campaigns" element={<Campaigns />} />
         <Route path="/destaques" element={<Destaques />} />
         <Route path="/temas" element={<Temas />} />
+        <Route path="/hero3d" element={<Hero3D />} />
       </Routes>
     </BrowserRouter>
   );

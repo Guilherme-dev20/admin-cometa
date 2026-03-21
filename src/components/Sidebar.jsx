@@ -1,4 +1,4 @@
-import { LayoutDashboard, ShoppingCart, Palette, Megaphone, Star, Layers, LogOut } from "lucide-react";
+import { LayoutDashboard, ShoppingCart, Palette, Megaphone, Star, Layers, Box, LogOut } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { supabase } from "../services/api"; // Certifique-se que o caminho está correto
 
@@ -71,6 +71,12 @@ export default function Sidebar({ onNavigate }) {
           to="/temas"
           icon={<Layers size={20} />}
           label="Temas"
+          onClick={onNavigate}
+        />
+        <MenuLink
+          to="/hero3d"
+          icon={<Box size={20} />}
+          label="Hero 3D"
           onClick={onNavigate}
         />
       </nav>
