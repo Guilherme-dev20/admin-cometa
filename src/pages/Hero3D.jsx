@@ -250,10 +250,10 @@ function Controls({ modelo, setModelo, cor, setCor, ativo, setAtivo, stamps, set
 
       <div className="rounded-2xl bg-white/5 border border-white/10 p-4 space-y-2">
         <p className="text-sm font-semibold text-white/70">Cor da camisa</p>
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center overflow-hidden">
           <ColorSwatch value={cor} onChange={setCor} size="lg" />
           <input type="text" value={cor} onChange={(e) => setCor(e.target.value)} maxLength={7}
-            className="flex-1 px-3 py-2 bg-white/5 text-white border border-white/10 rounded-xl text-sm font-mono outline-none focus:ring-2 focus:ring-purple-500"
+            className="min-w-0 flex-1 px-3 py-2 bg-white/5 text-white border border-white/10 rounded-xl text-sm font-mono outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="#ffffff" />
         </div>
       </div>
