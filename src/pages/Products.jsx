@@ -95,7 +95,12 @@ export default function Products() {
   async function uploadImageIfNeeded() {
     if (!file) return formData.imagem_url;
 
-    const fileName = `${Date.now()}-${file.name}`;
+    const safeName = file.name
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/ç/g, 'c').replace(/Ç/g, 'C')
+      .replace(/\s+/g, '_')
+      .replace(/[^a-zA-Z0-9.\-_]/g, '_');
+    const fileName = `${Date.now()}-${safeName}`;
     const { error: upErr } = await supabase.storage
       .from("fotos-produtos")
       .upload(fileName, file, { upsert: false });
