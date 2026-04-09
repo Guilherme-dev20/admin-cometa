@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Layout from "../components/Layout";
 import Header from "../components/Header";
-import { Check, X, Trash2, Star, Search, ExternalLink } from "lucide-react";
+import { Check, X, Trash2, Star, Search, ExternalLink, Play } from "lucide-react";
 import { supabase } from "../services/api";
 
 const TABS = [
@@ -43,9 +43,35 @@ function PhotoModal({ url, onClose }) {
   );
 }
 
+function VideoModal({ url, onClose }) {
+  return (
+    <div
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
+        <button
+          onClick={onClose}
+          className="absolute -top-10 right-0 text-white/60 hover:text-white"
+        >
+          <X size={28} />
+        </button>
+        <video
+          src={url}
+          controls
+          autoPlay
+          className="w-full max-h-[80vh] rounded-2xl bg-black"
+        />
+      </div>
+    </div>
+  );
+}
+
 function AvaliacaoCard({ av, onUpdate, onDelete }) {
   const [loading, setLoading] = useState(null);
   const [photoOpen, setPhotoOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+  console.log("avaliacao campos:", av);
 
   async function handleStatus(status) {
     setLoading(status);
@@ -114,14 +140,15 @@ function AvaliacaoCard({ av, onUpdate, onDelete }) {
           </button>
         )}
         {av.video_url && (
-          <a
-            href={av.video_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-purple-400/30 transition text-xs text-white/60 hover:text-white"
-          >
-            <ExternalLink size={13} /> Ver vídeo
-          </a>
+          <button onClick={() => setVideoOpen(true)} className="group relative">
+            <video
+              src={av.video_url}
+              className="w-20 h-20 object-cover rounded-xl border border-white/10 group-hover:border-purple-400/40 transition"
+            />
+            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition rounded-xl flex items-center justify-center">
+              <Play size={20} className="text-white fill-white" />
+            </div>
+          </button>
         )}
       </div>
 
@@ -158,6 +185,7 @@ function AvaliacaoCard({ av, onUpdate, onDelete }) {
       </div>
 
       {photoOpen && <PhotoModal url={av.foto_url} onClose={() => setPhotoOpen(false)} />}
+      {videoOpen && <VideoModal url={av.video_url} onClose={() => setVideoOpen(false)} />}
     </div>
   );
 }
